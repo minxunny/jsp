@@ -8,7 +8,7 @@
 	<div class="col-10 col-md-8">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="text-center">학생등록</h3>
+				<h3 class="text-center">학생수정</h3>
 			</div>
 			<div class="card-body">
 				<form name="frm">
@@ -58,8 +58,8 @@
 						<input name="birthday" class="form-control" type="date" value="2005-01-01">
 					</div>
 					<div class="text-center mt-3">
-						<button class="btn btn-primary">학생등록</button>
-						<button class="btn btn-secondary" type="reset">등록취소</button>
+						<button class="btn btn-primary">학생수정</button>
+						<button class="btn btn-secondary" type="reset">수정취소</button>
 					</div>
 				</form>
 			</div>

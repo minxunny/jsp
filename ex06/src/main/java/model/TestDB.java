@@ -11,9 +11,10 @@ public class TestDB {
 		vo.setSize(2);
 		vo.setKey("dept");
 		vo.setWord("건축");
-		dao.list(vo);
-		System.out.println("검색수:"+dao.total(vo));
-		System.out.println("새로운학번:"+dao.getCode());
+		//dao.list(vo);
+		//System.out.println("검색수:"+dao.total(vo));
+		//System.out.println("새로운학번:"+dao.getCode());
+		dao.read("96414405");
 	}
 
 }

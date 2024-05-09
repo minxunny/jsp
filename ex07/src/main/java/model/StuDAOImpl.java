@@ -114,4 +114,20 @@ public class StuDAOImpl implements StuDAO{
 		}
 		return vo;
 	}
+
+	@Override
+	public boolean delete(String scode) {
+		try {
+			String sql="delete from students where scode=?";
+			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setString(1, scode);
+			ps.execute();
+			return true;
+		}catch(Exception e) {
+			System.out.println("학생삭제:"+e.toString());
+			return false;
+		}
+	}
 }
+
+

@@ -17,7 +17,7 @@ import model.StuDAOImpl;
 import model.StuVO;
 
 
-@WebServlet(value={"/stu/list","/stu/list.json","/stu/total","/stu/insert","/stu/read"})
+@WebServlet(value={"/stu/list","/stu/list.json","/stu/total","/stu/insert","/stu/read","/stu/delete","/stu/update"})
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	StuDAOImpl dao=new StuDAOImpl();
@@ -27,8 +27,13 @@ public class StudentServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
 		RequestDispatcher dis=request.getRequestDispatcher("/home.jsp");
+		
 				
 		switch(request.getServletPath()) {
+		case "/stu/update":
+			request.setAttribute("pageName","/stu/update.jsp");
+			dis.forward(request, response);
+			break;
 		case "/stu/read":
 			request.setAttribute("stu", dao.read(request.getParameter("scode")));
 			request.setAttribute("pageName", "/stu/read.jsp");
@@ -64,6 +69,7 @@ public class StudentServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		switch(request.getServletPath()) {
 		case "/stu/insert":
@@ -77,7 +83,11 @@ public class StudentServlet extends HttpServlet {
 			dao.insert(vo);
 			response.sendRedirect("/stu/list");
 			break;
+			
+		case "/stu/delete":
+			String scode=request.getParameter("scode");
+			out.print(dao.delete(scode));
+			break;
 		}
 	}
-
 }

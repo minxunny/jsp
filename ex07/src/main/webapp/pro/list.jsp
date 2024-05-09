@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <style>
-	#size { 
+	#size {
 		width:100px;
 		float: right;
 	}
 </style>
 <div>
-	<h1>학생관리</h1>
+	<h1>교수관리</h1>
 	<div class="row mt-5 mb-3">
 		<form class="col" name="frm">
 			<div class="input-group">
 				<select class="form-select me-3" name="key">
-					<option value="scode">학생번호</option>
-					<option value="sname" selected>학생이름</option>
-					<option value="dept">학생학과</option>
-					<option value="pname">지도교수</option>
+					<option value="pcode">교수번호</option>
+					<option value="pname" selected>교수이름</option>
+					<option value="dept">교수학과</option>
 				</select>
 				<input placeholder="검색어" class="form-control" name="word">
 				<button class="btn btn-primary">검색</button>
@@ -29,32 +29,32 @@
 			</select>
 		</div>
 	</div>
-	<hr>
-	<div id="div_stu"></div>
+	<div id="div_pro"></div>
 	<div id="pagination" class="pagination justify-content-center mt-5"></div>
 </div>
-<script id="temp_stu" type="x-handlebars-templage">
-	<table class="table table-borderd table-hover text-center">
+<script id="temp_pro" type="x-handlebars-template">
+	<table class="table table-border table-hover">
 		<tr>
-			<td>학생번호</td>
-			<td>학생이름</td>
-			<td>학생학과</td>
-			<td>학생학년</td>
-			<td>생년월일</td>
-			<td>지도교수</td>
+			<td>교수번호</td>
+			<td>교수이름</td>
+			<td>교수학과</td>
+			<td>교수직급</td>
+			<td>교수급여</td>
+			<td>임용일자</td>
 		</tr>
 		{{#each .}}
 		<tr>
-			<td>{{scode}}</td>
-			<td><a href="/stu/read?scode={{scode}}">{{sname}}</a></td>
-			<td>{{sdept}}</td>
-			<td>{{year}}학년</td>
-			<td>{{birthday}}</td>
-			<td>{{pname}}({{advisor}})</td>
+			<td>{{pcode}}</td>
+			<td><a href="/pro/read?pcode={{pcode}}">{{pname}}</a></td>
+			<td>{{dept}}</td>
+			<td>{{title}}</td>
+			<td>{{salary}}</td>
+			<td>{{hiredate}}</td>
 		</tr>
 		{{/each}}
 	</table>
 </script>
+
 <script>
 	let page=1;
 	let size=$("#size").val();
@@ -63,10 +63,10 @@
 	
 	$(frm).on("submit", function(e){
 		e.preventDefault();
-		page=1;
-		size=$("#size").val();
 		key=$(frm.key).val();
 		word=$(frm.word).val();
+		size=$("#size").val();
+		page=1;
 		getData();
 	});
 	
@@ -82,38 +82,30 @@
 	function getData(){
 		$.ajax({
 			type:"get",
-			url:"/stu/list.json",
-			dataType:"json",
+			url:"/pro/list.json",
 			data:{page, size, key, word},
+			dataType:"json",
 			success:function(data){
 				console.log(data);
-				const temp=Handlebars.compile($("#temp_stu").html());
-				$("#div_stu").html(temp(data));
+				const temp=Handlebars.compile($("#temp_pro").html());
+				$("#div_pro").html(temp(data));
 			}
 		});
 	}
 	
-
 	function getTotal(){
 		$.ajax({
 			type:"get",
-			url:"/stu/total",
-			data:{key,word},
+			url:"/pro/total",
+			data:{key, word},
 			success:function(data){
-				if(data==0){
-					alert("검색내용이 없습니다.");
-					return;
-				}
 				const totalPage=Math.ceil(data/size);
 				$("#pagination").twbsPagination("changeTotalPages", totalPage, page);
-				if(data>size){
-					$("#pagination").show();
-				}else{
-					$("#pagination").hide();
-				}
+				
 			}
-		})
+		});
 	}
+	
 	$('#pagination').twbsPagination({
 		totalPages:10, 
 		visiblePages: 5, 
@@ -128,7 +120,4 @@
 			 getData();
 		}
 	});
-	
-	
-	
 </script>
