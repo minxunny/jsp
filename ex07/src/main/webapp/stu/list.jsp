@@ -18,6 +18,7 @@
 				</select>
 				<input placeholder="검색어" class="form-control" name="word">
 				<button class="btn btn-primary">검색</button>
+				<span id="total" class="mt-2 ms-3"></span>
 			</div>
 		</form>
 		<div class="col">
@@ -100,13 +101,15 @@
 			url:"/stu/total",
 			data:{key,word},
 			success:function(data){
-				if(data==0){
+				let total=parseInt(data);
+				$("#total").html("검색수:"+total);
+				if(total==0){
 					alert("검색내용이 없습니다.");
 					return;
 				}
-				const totalPage=Math.ceil(data/size);
+				const totalPage=Math.ceil(total/size);
 				$("#pagination").twbsPagination("changeTotalPages", totalPage, page);
-				if(data>size){
+				if(total>size){
 					$("#pagination").show();
 				}else{
 					$("#pagination").hide();

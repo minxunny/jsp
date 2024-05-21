@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <nav class="navbar" style="background-color:#1E88E5;" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">HOME</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,6 +22,12 @@
         </li>
          <li class="nav-item">
         	<a class="nav-link active" aria-current="page" href="/stu/insert">학생등록</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active" aria-current="page" href="/cou/list">강좌관리</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active" aria-current="page" href="/cou/insert">강좌등록</a>
         </li>
       </ul>
       <ul class="navbar-nav  mb-2 mb-lg-0">
